@@ -174,6 +174,31 @@ router.delete("/learner/:id", async (req, res) => {
 //   else res.send(result).status(200);
 // });
 
+// // Get a class's grade data
+router.get("/class/:id", async (req, res) => {
+  const query = { class_id: Number(req.params.id) };
+
+// router.get("/class/:id", async (req, res) => {
+//   let collection = await db.collection("grades");
+//   let query = { class_id: Number(req.params.id) };
+
+//   // Check for learner_id parameter
+if (req.query.learner) query.learner_id = Number(req.query.learner);
+  const grades = await Grade.find(query);
+  if (grades.length === 0) {
+    return res.status(404).send("Not found");
+  } else {
+  res.status(200).send(grades);
+}
+});
+//   if (req.query.learner) query.learner_id = Number(req.query.learner);
+
+//   let result = await collection.find(query).toArray();
+
+//   if (!result) res.send("Not found").status(404);
+//   else res.send(result).status(200);
+// });
+
 
 
 export default router;
