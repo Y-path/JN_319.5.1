@@ -7,8 +7,6 @@ const app = express();
 app.use(express.json());
 
 // Connect to Mongoose.
-// Note you must specify the database you want to connect to.
-// This defaults to the "test" database.
 await mongoose.connect(process.env.ATLAS_URI);
 
 app.get("/", (req, res) => {
